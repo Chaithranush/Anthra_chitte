@@ -14,6 +14,7 @@ export async function generateMetadata({ params }: PageProps) {
     const title = slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
     return {
         title: `${title} | Anthra Chitte`,
+        description: `Shop ${title} at Anthra Chitte. Handcrafted traditional wear, sarees with pockets, and Maternity Flexifit™.`,
     };
 }
 

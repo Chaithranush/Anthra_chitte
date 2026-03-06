@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Menu, Search, Heart, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CartSheet } from "./CartSheet";
+import { FavoritesSheet } from "./FavoritesSheet";
 import {
     Sheet,
     SheetContent,
@@ -16,12 +17,9 @@ import {
 import { cn } from "@/lib/utils";
 
 const links = [
-    { name: "Shop Best Sellers", href: "/category/best-sellers" },
-    { name: "New Launches", href: "/category/new-launches" },
-    { name: "Shop by Occasions", href: "/category/occasions" },
+    { name: "New Arrivals", href: "/category/new-arrivals" },
     { name: "Shop Sarees by Fabric", href: "/category/sarees-by-fabric" },
-    { name: "Shop Sarees by Colour", href: "/category/sarees-by-colour" },
-    { name: "Favorites", href: "/category/favorites" },
+    { name: "Blouses", href: "/category/blouses" },
 ];
 
 export function Navbar() {
@@ -97,10 +95,7 @@ export function Navbar() {
                         <Search className="h-5 w-5" />
                         <span className="sr-only">Search</span>
                     </Button>
-                    <Button variant="ghost" size="icon" className="hidden sm:flex">
-                        <Heart className="h-5 w-5" />
-                        <span className="sr-only">Wishlist</span>
-                    </Button>
+                    <FavoritesSheet />
                     <CartSheet />
                 </div>
             </div>

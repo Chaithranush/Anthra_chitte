@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Heart, ShoppingCart } from "lucide-react";
 import { Product } from "@/lib/data";
 import { Button } from "@/components/ui/button";
+import { PriceDisplay } from "@/components/PriceDisplay";
 import { useCartStore } from "@/store/useCartStore";
 import { cn } from "@/lib/utils";
 
@@ -82,7 +83,7 @@ export function ProductCard({ product }: ProductCardProps) {
                         </h3>
                         <p className="text-sm text-muted-foreground">{product.category}</p>
                     </div>
-                    <p className="text-base font-bold text-primary">₹{product.price.toLocaleString()}</p>
+                    <PriceDisplay price={product.price} variant="compact" className="text-base" />
                 </div>
             </div>
         </div>

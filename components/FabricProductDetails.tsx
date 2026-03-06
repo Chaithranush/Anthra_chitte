@@ -1,0 +1,259 @@
+"use client";
+
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { PriceDisplay } from "@/components/PriceDisplay";
+import { ShoppingCart, Heart, Info } from "lucide-react";
+import { useCartStore } from "@/store/useCartStore";
+import type { ProductWithFabric } from "@/lib/products";
+import type { Product } from "@/lib/data";
+import { Separator } from "@/components/ui/separator";
+
+interface FabricProductDetailsProps {
+  product: ProductWithFabric;
+}
+
+const sizes = ["XS", "S", "M", "L", "XL"];
+const skirtLengths = [
+  { value: "free" as const, label: "Free Size" },
+  { value: "42" as const, label: "42 inch" },
+  { value: "40" as const, label: "40 inch" },
+  { value: "38" as const, label: "38 inch" },
+  { value: "36" as const, label: "36 inch" },
+];
+
+export function FabricProductDetails({ product }: FabricProductDetailsProps) {
+  const { addItem, addFavorite, removeFavorite, isFavorite } = useCartStore();
+  const [sareeType, setSareeType] = useState<"normal" | "readymade">("normal");
+  const [size, setSize] = useState<string>("");
+  const [skirtLength, setSkirtLength] = useState<"free" | "42" | "40" | "38" | "36" | "">("");
+  const [pockets, setPockets] = useState<"with" | "without" | undefined>(undefined);
+  const [palluType, setPalluType] = useState<"open" | "pleated" | undefined>(undefined);
+  const [palluLength, setPalluLength] = useState<string>("");
+  const [palluWidth, setPalluWidth] = useState<string>("");
+
+  const handleConfirm = () => {
+    if (sareeType === "readymade") {
+      if (!size || !skirtLength || !pockets || !palluType) return;
+      if (palluType === "pleated" && (!palluLength || !palluWidth)) return;
+    }
+
+    const productForCart: Product = {
+      id: product.id,
+      name: product.name,
+      category: "Sarees",
+      price: product.price,
+      image: product.image,
+      description: product.description,
+    };
+
+    addItem(
+      productForCart,
+      sareeType === "readymade" ? size : undefined,
+      {
+        sareeType,
+        size: sareeType === "readymade" ? (size as "XS" | "S" | "M" | "L" | "XL") : undefined,
+        skirtLength: sareeType === "readymade" ? (skirtLength as "free" | "42" | "40" | "38" | "36") : undefined,
+        pockets: sareeType === "readymade" ? pockets : undefined,
+        palluType: sareeType === "readymade" ? palluType : undefined,
+        palluLength: palluType === "pleated" ? (palluLength as "32" | "37" | "42") : undefined,
+        palluWidth: palluType === "pleated" ? (palluWidth as "3" | "5" | "7") : undefined,
+      }
+    );
+  };
+
+  const canConfirm =
+    sareeType === "normal" ||
+    (sareeType === "readymade" &&
+      size &&
+      skirtLength &&
+      pockets &&
+      palluType &&
+      (palluType !== "pleated" || (palluLength && palluWidth)));
+
+  const handleWishlist = () => {
+    const item = {
+      id: product.id,
+      name: product.name,
+      category: "Sarees" as const,
+      price: product.price,
+      image: product.image,
+      description: product.description,
+    };
+    if (isFavorite(product.id)) removeFavorite(product.id);
+    else addFavorite(item);
+  };
+
+  const optionBtn = (
+    isSelected: boolean,
+    label: string,
+    onClick: () => void,
+    className = ""
+  ) => (
+    <Button
+      key={label}
+      variant={isSelected ? "default" : "outline"}
+      onClick={onClick}
+      className={`shrink-0 ${
+        isSelected
+          ? "bg-primary text-primary-foreground hover:bg-primary/90"
+          : "border-muted-foreground/30 text-foreground hover:border-primary hover:text-primary"
+      } ${className}`}
+    >
+      {label}
+    </Button>
+  );
+
+  const circularBtn = (value: string, label: string, selected: boolean, onClick: () => void) => (
+    <Button
+      key={value}
+      variant="outline"
+      onClick={onClick}
+      className={`w-12 h-12 rounded-full shrink-0 ${
+        selected
+          ? "bg-primary text-primary-foreground hover:bg-primary/90 border-primary"
+          : "border-muted-foreground/30 text-foreground hover:border-primary hover:text-primary"
+      }`}
+    >
+      {label}
+    </Button>
+  );
+
+  return (
+    <div className="flex flex-col space-y-6">
+      <div className="space-y-2">
+        <h1 className="text-3xl font-bold font-serif text-primary">
+          {product.fabric === "dailywear" ? "Linen Digital Prints" : product.fabric} Saree
+        </h1>
+        <PriceDisplay price={product.price} className="text-xl [&_p:last-child]:text-primary [&_span:last-child]:text-primary" />
+        {product.fabric && product.fabric !== "dailywear" && (
+          <p className="text-sm text-muted-foreground">
+            Fabric: {product.fabric}
+          </p>
+        )}
+      </div>
+
+      <div className="space-y-6 border-t border-border pt-6">
+        <h3 className="text-sm font-medium text-foreground">Saree Type</h3>
+        <div className="flex flex-wrap gap-2">
+          {optionBtn(sareeType === "normal", "Normal Saree", () => setSareeType("normal"))}
+          {optionBtn(sareeType === "readymade", "Readymade Saree", () => setSareeType("readymade"))}
+        </div>
+      </div>
+
+      {sareeType === "readymade" && (
+        <>
+          <div className="space-y-3">
+            <h3 className="text-sm font-medium text-foreground">Size</h3>
+            <div className="flex flex-wrap gap-2">
+              {sizes.map((s) =>
+                circularBtn(s, s, size === s, () => setSize(s))
+              )}
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <h3 className="text-sm font-medium text-foreground">Saree skirt length</h3>
+            <p className="text-xs text-muted-foreground">Free size or customized</p>
+            <div className="flex flex-wrap gap-2">
+              {skirtLengths.map(({ value }) =>
+                circularBtn(
+                  value,
+                  value === "free" ? "Free" : value,
+                  skirtLength === value,
+                  () => setSkirtLength(value)
+                )
+              )}
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <h3 className="text-sm font-medium text-foreground">Pockets</h3>
+            <div className="flex flex-wrap gap-2">
+              {optionBtn(pockets === "with", "With Pockets", () => setPockets("with"))}
+              {optionBtn(pockets === "without", "Without Pockets", () => setPockets("without"))}
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <h3 className="text-sm font-medium text-foreground">Pallu</h3>
+            <div className="flex flex-wrap gap-2">
+              {optionBtn(palluType === "open", "Open Pallu", () => setPalluType("open"))}
+              {optionBtn(palluType === "pleated", "Pleated Pallu", () => setPalluType("pleated"))}
+            </div>
+          </div>
+
+          {palluType === "pleated" && (
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <h3 className="text-sm font-medium text-foreground">Pallu Length</h3>
+                <div className="flex flex-wrap gap-2">
+                  {["32", "37", "42"].map((len) =>
+                    optionBtn(
+                      palluLength === len,
+                      `${len} inch`,
+                      () => setPalluLength(len),
+                      "rounded-full"
+                    )
+                  )}
+                </div>
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-sm font-medium text-foreground">Pallu Width</h3>
+                <div className="flex flex-wrap gap-2">
+                  {["3", "5", "7"].map((w) =>
+                    optionBtn(
+                      palluWidth === w,
+                      `${w} inch`,
+                      () => setPalluWidth(w),
+                      "rounded-full"
+                    )
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </>
+      )}
+
+      <div className="flex gap-3 pt-2">
+        <Button
+          size="lg"
+          className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 text-lg gap-2"
+          onClick={handleConfirm}
+          disabled={!canConfirm}
+        >
+          <ShoppingCart className="w-5 h-5" />
+          Add to Cart
+        </Button>
+        <Button
+          variant="outline"
+          size="icon"
+          className="h-12 w-12 rounded-full shrink-0 border-muted-foreground/30 text-muted-foreground hover:text-red-500 hover:border-red-500"
+          onClick={handleWishlist}
+        >
+          <Heart
+            className={`w-6 h-6 ${isFavorite(product.id) ? "fill-red-500 text-red-500" : ""}`}
+          />
+        </Button>
+      </div>
+
+      <Separator />
+
+      <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+        <p>{product.description}</p>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>Handcrafted with care</li>
+          <li>Premium breathable fabric</li>
+          <li>Perfect for all-day comfort</li>
+          <li>Featuring deep pockets (readymade option)</li>
+        </ul>
+      </div>
+
+      <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/50 p-3 rounded-lg border border-border/50">
+        <Info className="w-4 h-4 shrink-0" />
+        <span>Free shipping on orders above ₹2000. Easy returns within 7 days.</span>
+      </div>
+    </div>
+  );
+}

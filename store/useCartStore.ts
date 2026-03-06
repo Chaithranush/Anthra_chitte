@@ -4,10 +4,11 @@ import { Product } from '@/lib/data';
 
 type SareeConfig = {
     sareeType: 'normal' | 'readymade';
-    size?: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
+    size?: 'XS' | 'S' | 'M' | 'L' | 'XL';
+    skirtLength?: 'free' | '42' | '40' | '38' | '36'; // Saree skirt length: free size or customized (inch)
     pockets?: 'with' | 'without';
     palluType?: 'open' | 'pleated';
-    palluLength?: '32' | '42' | '47';
+    palluLength?: '32' | '37' | '42';
     palluWidth?: '3' | '5' | '7';
 };
 
@@ -20,8 +21,8 @@ interface CartItem extends Product {
 interface CartState {
     items: CartItem[];
     addItem: (product: Product, size?: string, config?: SareeConfig) => void;
-    removeItem: (productId: string, size?: string) => void;
-    updateQuantity: (productId: string, quantity: number, size?: string) => void;
+    removeItem: (productId: string, size?: string, config?: SareeConfig) => void;
+    updateQuantity: (productId: string, quantity: number, size?: string, config?: SareeConfig) => void;
     clearCart: () => void;
     totalItems: () => number;
     totalPrice: () => number;
@@ -58,16 +59,40 @@ export const useCartStore = create<CartState>()(
                     set({ items: [...items, { ...product, quantity: 1, size, config }] });
                 }
             },
-            removeItem: (productId, size) => {
-                set({ items: get().items.filter((item) => !(item.id === productId && item.size === size)) });
+            removeItem: (productId, size, config) => {
+                const configStr = JSON.stringify(config || {});
+                set({
+                    items: get().items.filter(
+                        (item) =>
+                            !(
+                                item.id === productId &&
+                                item.size === size &&
+                                JSON.stringify(item.config || {}) === configStr
+                            )
+                    ),
+                });
             },
-            updateQuantity: (productId, quantity, size) => {
+            updateQuantity: (productId, quantity, size, config) => {
+                const configStr = JSON.stringify(config || {});
                 if (quantity <= 0) {
-                    set({ items: get().items.filter((item) => !(item.id === productId && item.size === size)) });
+                    set({
+                        items: get().items.filter(
+                            (item) =>
+                                !(
+                                    item.id === productId &&
+                                    item.size === size &&
+                                    JSON.stringify(item.config || {}) === configStr
+                                )
+                        ),
+                    });
                 } else {
                     set({
                         items: get().items.map((item) =>
-                            item.id === productId && item.size === size ? { ...item, quantity } : item
+                            item.id === productId &&
+                            item.size === size &&
+                            JSON.stringify(item.config || {}) === configStr
+                                ? { ...item, quantity }
+                                : item
                         ),
                     });
                 }

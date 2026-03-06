@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCartStore } from "@/store/useCartStore";
 import {
     Sheet,
@@ -9,6 +10,7 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { PriceDisplay } from "@/components/PriceDisplay";
 import { ShoppingBag, X, Plus, Minus } from "lucide-react";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
@@ -53,8 +55,8 @@ export function CartSheet() {
                     <div className="flex flex-col items-center justify-center flex-1 space-y-4">
                         <ShoppingBag className="w-16 h-16 text-muted-foreground opacity-50" />
                         <p className="text-muted-foreground text-lg">Your cart is empty</p>
-                        <Button variant="outline" className="mt-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                            Continue Shopping
+                        <Button asChild variant="outline" className="mt-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                            <Link href="/">Continue Shopping</Link>
                         </Button>
                     </div>
                 ) : (
@@ -62,17 +64,19 @@ export function CartSheet() {
                         <div className="flex-1 overflow-y-auto pr-4">
                             <div className="space-y-6">
                                 {items.map((item) => (
-                                    <div key={`${item.id}-${item.size || 'nosize'}`} className="flex space-x-4">
+                                    <div key={`${item.id}-${item.size || ""}-${JSON.stringify(item.config || {})}`} className="flex space-x-4">
                                         <div className="relative w-20 h-24 rounded-md overflow-hidden bg-muted">
                                             <Image
                                                 src={item.image}
-                                                alt={item.name}
+                                                alt={item.id.includes("-") ? "Saree" : item.name}
                                                 fill
                                                 className="object-cover"
                                             />
                                         </div>
                                         <div className="flex-1 space-y-1">
-                                            <h4 className="font-medium text-foreground text-sm line-clamp-2">{item.name}</h4>
+                                            <h4 className="font-medium text-foreground text-sm line-clamp-2">
+                                                {item.id.includes("-") ? "Saree" : item.name}
+                                            </h4>
                                             <p className="text-sm text-muted-foreground font-serif">Category: {item.category}</p>
                                             {item.size && (
                                                 <p className="text-xs text-muted-foreground">Size: {item.size}</p>
@@ -80,9 +84,12 @@ export function CartSheet() {
                                             {item.config && (
                                                 <div className="text-xs text-muted-foreground space-y-0.5">
                                                     <p>Type: {item.config.sareeType}</p>
+                                                    {item.config.skirtLength && (
+                                                        <p>Skirt length: {item.config.skirtLength === "free" ? "Free size" : `${item.config.skirtLength} inch`}</p>
+                                                    )}
                                                     {item.config.pockets && <p>Pockets: {item.config.pockets}</p>}
                                                     {item.config.palluType && <p>Pallu: {item.config.palluType}</p>}
-                                                    {item.config.palluType === 'pleated' && item.config.palluLength && item.config.palluWidth && (
+                                                    {item.config.palluType === "pleated" && item.config.palluLength && item.config.palluWidth && (
                                                         <p>Pallu Size: {item.config.palluLength} x {item.config.palluWidth} inch</p>
                                                     )}
                                                 </div>
@@ -93,7 +100,7 @@ export function CartSheet() {
                                                         variant="ghost"
                                                         size="icon"
                                                         className="h-8 w-8 rounded-none"
-                                                        onClick={() => updateQuantity(item.id, item.quantity - 1, item.size)}
+                                                        onClick={() => updateQuantity(item.id, item.quantity - 1, item.size, item.config)}
                                                     >
                                                         <Minus className="w-3 h-3" />
                                                     </Button>
@@ -102,19 +109,19 @@ export function CartSheet() {
                                                         variant="ghost"
                                                         size="icon"
                                                         className="h-8 w-8 rounded-none"
-                                                        onClick={() => updateQuantity(item.id, item.quantity + 1, item.size)}
+                                                        onClick={() => updateQuantity(item.id, item.quantity + 1, item.size, item.config)}
                                                     >
                                                         <Plus className="w-3 h-3" />
                                                     </Button>
                                                 </div>
-                                                <p className="font-bold text-primary">₹{(item.price * item.quantity).toLocaleString()}</p>
+                                                <PriceDisplay price={item.price} quantity={item.quantity} variant="compact" />
                                             </div>
                                         </div>
                                         <Button
                                             variant="ghost"
                                             size="icon"
                                             className="text-muted-foreground hover:text-destructive self-start -mt-2 -mr-2"
-                                            onClick={() => removeItem(item.id, item.size)}
+                                            onClick={() => removeItem(item.id, item.size, item.config)}
                                         >
                                             <X className="w-4 h-4" />
                                         </Button>
@@ -128,8 +135,8 @@ export function CartSheet() {
                                 <span>Total</span>
                                 <span>₹{totalPrice().toLocaleString()}</span>
                             </div>
-                            <Button className="w-full btn-primary text-lg py-6 shadow-md hover:shadow-lg transition-all">
-                                Proceed to Checkout
+                            <Button asChild className="w-full btn-primary text-lg py-6 shadow-md hover:shadow-lg transition-all">
+                                <Link href="/checkout">Proceed to Checkout</Link>
                             </Button>
                         </div>
                     </>
