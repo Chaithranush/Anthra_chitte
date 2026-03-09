@@ -13,6 +13,7 @@ export interface DbProduct {
   isNew?: boolean;
   rating?: number;
   reviewCount?: number;
+  discountPercent?: number;
   source: "fabric" | "catalog";
 }
 
@@ -57,6 +58,7 @@ export async function getProductsFromDB(filters?: {
       isNew: p.isNew,
       rating: fromRatings.reviewCount > 0 ? fromRatings.rating : (p.rating ?? 4.5),
       reviewCount: fromRatings.reviewCount > 0 ? fromRatings.reviewCount : (p.reviewCount ?? 0),
+      discountPercent: p.discountPercent,
       source: p.source,
     });
   }
@@ -80,6 +82,7 @@ export async function getProductByIdFromDB(id: string): Promise<DbProduct | null
     isNew: product.isNew,
     rating: fromRatings.reviewCount > 0 ? fromRatings.rating : (product.rating ?? 4.5),
     reviewCount: fromRatings.reviewCount > 0 ? fromRatings.reviewCount : (product.reviewCount ?? 0),
+    discountPercent: product.discountPercent,
     source: product.source,
   };
 }

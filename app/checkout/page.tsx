@@ -8,7 +8,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { PriceDisplay } from "@/components/PriceDisplay";
-import { useCartStore } from "@/store/useCartStore";
+import { useCartStore, getSareeItemPrice, READYMADE_ADDON, POCKETS_ADDON } from "@/store/useCartStore";
 import { useAuthStore } from "@/store/useAuthStore";
 import { ShoppingBag, ArrowLeft } from "lucide-react";
 
@@ -31,9 +31,11 @@ const initialAddress: AddressForm = {
 };
 
 export default function CheckoutPage() {
-  const { items, totalPrice, totalItems, clearCart } = useCartStore();
+  const { items, subtotalPrice, platformFee, totalPrice, totalItems, clearCart } = useCartStore();
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
   const token = useAuthStore((s) => s.token);
+  const userName = useAuthStore((s) => s.userName);
+  const userEmail = useAuthStore((s) => s.userEmail);
   const [mounted, setMounted] = useState(false);
   const [completing, setCompleting] = useState(false);
   const [address, setAddress] = useState<AddressForm>(initialAddress);
@@ -101,17 +103,9 @@ export default function CheckoutPage() {
     );
   }
 
-  const getImageUrl = (path: string) => {
-    if (path.startsWith("http")) return path;
-    const base = typeof window !== "undefined" ? window.location.origin : process.env.NEXT_PUBLIC_SITE_URL ?? "";
-    return `${base}${path.startsWith("/") ? "" : "/"}${path}`;
-  };
-
   const formatItemDetails = (i: (typeof items)[0]) => {
-    const name = i.id.includes("-") ? "Saree" : i.name;
     const lines: string[] = [];
-    lines.push(`📷 ${name}`);
-    lines.push(`Image: ${getImageUrl(i.image)}`);
+    lines.push(`📷 ${i.name}`);
     if (i.size) lines.push(`• Size: ${i.size}`);
     if (i.config) {
       if (i.config.sareeType) lines.push(`• Type: ${i.config.sareeType} saree`);
@@ -124,22 +118,29 @@ export default function CheckoutPage() {
         lines.push(`• Pallu: ${pallu}`);
       }
     }
-    lines.push(`• Qty: ${i.quantity} | ₹${(i.price * i.quantity).toLocaleString()}`);
+    lines.push(`• Qty: ${i.quantity} | ₹${(getSareeItemPrice(i) * i.quantity).toLocaleString()}`);
     return lines.join("\n");
   };
   const orderSummary = items.map(formatItemDetails).join("\n\n");
   const total = totalPrice();
   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "918747017276";
 
+  const platformFeeAmount = platformFee();
   const buildWhatsAppUrl = (addr: AddressForm) => {
-    const addrLines = [
-      "📍 Delivery Address:",
+    const customerLines = [
+      ...(userName ? [`👤 Customer: ${userName}`] : []),
+      ...(userEmail ? [`📧 Email: ${userEmail}`] : []),
+    ];
+    const customerBlock = customerLines.length > 0 ? customerLines.join("\n") : "";
+    const addressBlock = [
+      "📍 Delivery Address",
       addr.addressLine1.trim(),
       ...(addr.addressLine2.trim() ? [addr.addressLine2.trim()] : []),
       `${addr.city.trim()}, ${addr.state.trim()} - ${addr.pincode.trim()}`,
-      `Phone: ${addr.phone.trim()}`,
+      `📞 Phone: ${addr.phone.trim()}`,
     ].join("\n");
-    const fullMessage = `Hi, I'd like to place an order:\n\n${orderSummary}\n\n${addrLines}\n\n—————————\nTotal: ₹${total.toLocaleString()}`;
+    const feeLine = platformFeeAmount > 0 ? `\nPlatform fee: +₹${platformFeeAmount}` : "";
+    const fullMessage = `Hi, I'd like to place an order:\n\n${customerBlock ? customerBlock + "\n\n" : ""}${orderSummary}\n\n${addressBlock}${feeLine}\n\n—————————\nTotal: ₹${total.toLocaleString()}`;
     return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(fullMessage)}`;
   };
 
@@ -154,7 +155,7 @@ export default function CheckoutPage() {
       const orderItems = items.map((i) => ({
         productId: i.id,
         name: i.id.includes("-") ? "Saree" : i.name,
-        price: i.price,
+        price: getSareeItemPrice(i),
         quantity: i.quantity,
         image: i.image,
         size: i.size,
@@ -228,9 +229,16 @@ export default function CheckoutPage() {
                     {item.config.palluType === "pleated" && item.config.palluLength && item.config.palluWidth && (
                       <p>Pallu: {item.config.palluLength} x {item.config.palluWidth} inch</p>
                     )}
+                    {(item.config.readymadeAddon || item.config.pocketsAddon) && (
+                      <div className="pt-1 space-y-0.5 text-foreground">
+                        <p>Base: ₹{item.price.toLocaleString()}</p>
+                        {item.config.readymadeAddon && <p>Readymade: +₹{READYMADE_ADDON}</p>}
+                        {item.config.pocketsAddon && <p>With pockets: +₹{POCKETS_ADDON}</p>}
+                      </div>
+                    )}
                   </div>
                 )}
-                <PriceDisplay price={item.price} quantity={item.quantity} variant="compact" className="mt-1" />
+                <PriceDisplay price={getSareeItemPrice(item)} quantity={item.quantity} discountPercent={item.discountPercent} variant="compact" className="mt-1" />
               </div>
             </div>
           ))}
@@ -330,8 +338,20 @@ export default function CheckoutPage() {
         </div>
 
         <div className="border-t border-border pt-6 space-y-4">
-          <div className="flex justify-between text-lg font-semibold text-foreground">
-            <span>Total ({totalItems()} items)</span>
+          <div className="space-y-1 text-sm">
+            <div className="flex justify-between text-muted-foreground">
+              <span>Subtotal ({totalItems()} items)</span>
+              <span>₹{subtotalPrice().toLocaleString()}</span>
+            </div>
+            {platformFee() > 0 && (
+              <div className="flex justify-between text-muted-foreground">
+                <span>Platform fee (orders under ₹2,000)</span>
+                <span>+₹30</span>
+              </div>
+            )}
+          </div>
+          <div className="flex justify-between text-lg font-semibold text-foreground pt-2 border-t border-border">
+            <span>Total</span>
             <span>₹{total.toLocaleString()}</span>
           </div>
           <p className="text-sm text-muted-foreground">

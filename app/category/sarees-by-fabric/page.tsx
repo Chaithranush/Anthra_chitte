@@ -15,7 +15,6 @@ import { useCartStore } from "@/store/useCartStore";
 const categories = [
   { id: "dailywear", label: "Linen Digital Prints" },
   { id: "ganga pattu", label: "Ganga Pattu" },
-  { id: "jaipuri cotton", label: "Jaipuri Cotton" },
 ];
 
 type FabricItem = {
@@ -113,9 +112,11 @@ export default function SareesByFabricPage() {
                         NEW
                       </span>
                     )}
-                    <span className="rounded-md bg-emerald-600 px-2 py-0.5 text-xs font-semibold text-white shadow">
-                      20% OFF
-                    </span>
+                    {product.discountPercent != null && product.discountPercent > 0 && (
+                      <span className="rounded-md bg-emerald-600 px-2 py-0.5 text-xs font-semibold text-white shadow">
+                        {product.discountPercent}% OFF
+                      </span>
+                    )}
                   </div>
                   <Image
                     src={product.image}
@@ -162,7 +163,7 @@ export default function SareesByFabricPage() {
                     {product.description}
                   </p>
                   <div className="mt-2 flex items-center justify-between gap-2">
-                    <PriceDisplay price={product.price} variant="default" />
+                    <PriceDisplay price={product.price} discountPercent={product.discountPercent} variant="default" />
                     <Button size="sm" variant="secondary" className="font-medium" asChild>
                       <Link href={`/product/${product.id}`}>Add to Cart</Link>
                     </Button>

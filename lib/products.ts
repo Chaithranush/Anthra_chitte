@@ -18,6 +18,7 @@ export async function getProductById(id: string): Promise<ProductWithFabric | un
     isNew: product.isNew,
     rating: product.rating,
     reviewCount: product.reviewCount,
+    discountPercent: product.discountPercent,
   };
 }
 

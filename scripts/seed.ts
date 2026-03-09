@@ -31,6 +31,7 @@ async function seed() {
       isNew: { type: Boolean, default: false },
       rating: { type: Number },
       reviewCount: { type: Number },
+      discountPercent: { type: Number },
       source: { type: String, enum: ["fabric", "catalog"], required: true },
     },
     { timestamps: true }
@@ -54,6 +55,7 @@ async function seed() {
     isNew: p.isNew ?? false,
     rating: p.rating,
     reviewCount: p.reviewCount,
+    discountPercent: p.discountPercent,
     source: "fabric",
   }));
   await Product.insertMany(fabricProducts);

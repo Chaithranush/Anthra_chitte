@@ -1,5 +1,8 @@
 import { getAllProductIds } from "@/lib/data";
 import { getProductById, isFabricProduct } from "@/lib/products";
+
+// Ensure fresh product data (including ratings) on each request
+export const dynamic = "force-dynamic";
 import { ProductDetails } from "@/components/ProductDetails";
 import { FabricProductDetails } from "@/components/FabricProductDetails";
 import { Navbar } from "@/components/Navbar";

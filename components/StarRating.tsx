@@ -7,6 +7,8 @@ interface StarRatingProps {
   reviewCount?: number;
   className?: string;
   size?: "sm" | "md" | "lg";
+  /** When true, only show stars (no numeric rating or review count) */
+  starsOnly?: boolean;
 }
 
 export function StarRating({
@@ -14,6 +16,7 @@ export function StarRating({
   reviewCount,
   className = "",
   size = "md",
+  starsOnly = false,
 }: StarRatingProps) {
   const clamped = Math.min(5, Math.max(0, rating));
   const full = Math.floor(clamped);
@@ -31,9 +34,14 @@ export function StarRating({
           <Star key={`empty-${i}`} className={`${iconSize} text-amber-400/30`} />
         ))}
       </div>
-      <span className="text-xs text-muted-foreground">
-        {reviewCount != null ? `(${reviewCount})` : clamped % 1 === 0 ? String(clamped) : clamped.toFixed(1)}
-      </span>
+      {!starsOnly && (
+        <span className="text-sm text-muted-foreground">
+          {clamped % 1 === 0 ? String(clamped) : clamped.toFixed(1)}
+          {reviewCount != null && reviewCount > 0 && (
+            <span className="ml-1">({reviewCount} {reviewCount === 1 ? "review" : "reviews"})</span>
+          )}
+        </span>
+      )}
     </div>
   );
 }

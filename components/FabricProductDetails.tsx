@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { PriceDisplay } from "@/components/PriceDisplay";
 import { ProductRatingBlock } from "@/components/ProductRatingBlock";
 import { ShoppingCart, Heart, Info } from "lucide-react";
-import { useCartStore } from "@/store/useCartStore";
+import { useCartStore, READYMADE_ADDON, POCKETS_ADDON } from "@/store/useCartStore";
 import type { ProductWithFabric } from "@/lib/products";
 import type { Product } from "@/lib/data";
 import { Separator } from "@/components/ui/separator";
@@ -39,6 +39,9 @@ export function FabricProductDetails({ product }: FabricProductDetailsProps) {
       if (palluType === "pleated" && (!palluLength || !palluWidth)) return;
     }
 
+    const readymadeAddon = sareeType === "readymade" ? READYMADE_ADDON : 0;
+    const pocketsAddon = pockets === "with" ? POCKETS_ADDON : 0;
+
     const productForCart: Product = {
       id: product.id,
       name: product.name,
@@ -59,6 +62,8 @@ export function FabricProductDetails({ product }: FabricProductDetailsProps) {
         palluType: sareeType === "readymade" ? palluType : undefined,
         palluLength: palluType === "pleated" ? (palluLength as "32" | "37" | "42") : undefined,
         palluWidth: palluType === "pleated" ? (palluWidth as "3" | "5" | "7") : undefined,
+        readymadeAddon: readymadeAddon || undefined,
+        pocketsAddon: pocketsAddon || undefined,
       }
     );
   };
@@ -132,7 +137,14 @@ export function FabricProductDetails({ product }: FabricProductDetailsProps) {
           reviewCount={product.reviewCount ?? 0}
           size="lg"
         />
-        <PriceDisplay price={product.price} className="text-xl [&_p:last-child]:text-primary [&_span:last-child]:text-primary" />
+        <div className="flex items-center gap-2 flex-wrap">
+          <PriceDisplay price={product.price} discountPercent={product.discountPercent} className="text-xl [&_p:last-child]:text-primary [&_span:last-child]:text-primary" />
+          {product.discountPercent != null && product.discountPercent > 0 && (
+            <span className="text-xs font-semibold bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 px-2 py-0.5 rounded">
+              {product.discountPercent}% OFF
+            </span>
+          )}
+        </div>
         {product.fabric && product.fabric !== "dailywear" && (
           <p className="text-sm text-muted-foreground">
             Fabric: {product.fabric}
@@ -221,6 +233,36 @@ export function FabricProductDetails({ product }: FabricProductDetailsProps) {
             </div>
           )}
         </>
+      )}
+
+      {sareeType === "readymade" && (
+        <div className="rounded-lg border border-border bg-muted/30 p-4 space-y-2">
+          <h3 className="text-sm font-medium text-foreground">Price summary</h3>
+          <div className="text-sm space-y-1">
+            <p className="flex justify-between">
+              <span className="text-muted-foreground">Base price</span>
+              <span>₹{product.price.toLocaleString("en-IN")}</span>
+            </p>
+            {sareeType === "readymade" && (
+              <p className="flex justify-between">
+                <span className="text-muted-foreground">Readymade saree</span>
+                <span>+₹{READYMADE_ADDON}</span>
+              </p>
+            )}
+            {pockets === "with" && (
+              <p className="flex justify-between">
+                <span className="text-muted-foreground">With pockets</span>
+                <span>+₹{POCKETS_ADDON}</span>
+              </p>
+            )}
+            <p className="flex justify-between font-semibold pt-2 border-t border-border">
+              <span>Total (per piece)</span>
+              <span className="text-primary">
+                ₹{(product.price + (sareeType === "readymade" ? READYMADE_ADDON : 0) + (pockets === "with" ? POCKETS_ADDON : 0)).toLocaleString("en-IN")}
+              </span>
+            </p>
+          </div>
+        </div>
       )}
 
       <div className="flex gap-3 pt-2">

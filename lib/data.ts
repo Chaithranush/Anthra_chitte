@@ -10,6 +10,7 @@ export interface Product {
   isNew?: boolean;
   rating?: number;
   reviewCount?: number;
+  discountPercent?: number;
 }
 
 export async function getProducts(): Promise<Product[]> {

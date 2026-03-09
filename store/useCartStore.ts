@@ -2,7 +2,12 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { Product } from '@/lib/data';
 
-type SareeConfig = {
+export const READYMADE_ADDON = 75;
+export const POCKETS_ADDON = 40;
+export const PLATFORM_FEE = 30;
+export const FREE_PLATFORM_FEE_THRESHOLD = 2000;
+
+export type SareeConfig = {
     sareeType: 'normal' | 'readymade';
     size?: 'XS' | 'S' | 'M' | 'L' | 'XL';
     skirtLength?: 'free' | '42' | '40' | '38' | '36'; // Saree skirt length: free size or customized (inch)
@@ -10,7 +15,14 @@ type SareeConfig = {
     palluType?: 'open' | 'pleated';
     palluLength?: '32' | '37' | '42';
     palluWidth?: '3' | '5' | '7';
+    readymadeAddon?: number;
+    pocketsAddon?: number;
 };
+
+export function getSareeItemPrice(item: { price: number; config?: SareeConfig }): number {
+    const addons = (item.config?.readymadeAddon ?? 0) + (item.config?.pocketsAddon ?? 0);
+    return item.price + addons;
+}
 
 interface CartItem extends Product {
     quantity: number;
@@ -25,6 +37,8 @@ interface CartState {
     updateQuantity: (productId: string, quantity: number, size?: string, config?: SareeConfig) => void;
     clearCart: () => void;
     totalItems: () => number;
+    subtotalPrice: () => number;
+    platformFee: () => number;
     totalPrice: () => number;
     favorites: Product[];
     addFavorite: (product: Product) => void;
@@ -99,7 +113,16 @@ export const useCartStore = create<CartState>()(
             },
             clearCart: () => set({ items: [] }),
             totalItems: () => get().items.reduce((acc, item) => acc + item.quantity, 0),
-            totalPrice: () => get().items.reduce((acc, item) => acc + item.price * item.quantity, 0),
+            subtotalPrice: () => get().items.reduce((acc, item) => acc + getSareeItemPrice(item) * item.quantity, 0),
+            platformFee: () => {
+                const subtotal = get().items.reduce((acc, item) => acc + getSareeItemPrice(item) * item.quantity, 0);
+                return subtotal > 0 && subtotal < FREE_PLATFORM_FEE_THRESHOLD ? PLATFORM_FEE : 0;
+            },
+            totalPrice: () => {
+                const subtotal = get().items.reduce((acc, item) => acc + getSareeItemPrice(item) * item.quantity, 0);
+                const fee = subtotal > 0 && subtotal < FREE_PLATFORM_FEE_THRESHOLD ? PLATFORM_FEE : 0;
+                return subtotal + fee;
+            },
             addFavorite: (product) => {
                 const favorites = get().favorites;
                 if (!favorites.find((p) => p.id === product.id)) {

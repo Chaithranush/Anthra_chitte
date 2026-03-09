@@ -12,6 +12,7 @@ export interface IProduct {
   isNew?: boolean;
   rating?: number;
   reviewCount?: number;
+  discountPercent?: number;
   source: "fabric" | "catalog";
   createdAt: Date;
 }
@@ -28,6 +29,7 @@ const ProductSchema = new Schema<IProduct>(
     isNew: { type: Boolean, default: false },
     rating: { type: Number },
     reviewCount: { type: Number },
+    discountPercent: { type: Number },
     source: { type: String, enum: ["fabric", "catalog"], required: true },
     createdAt: { type: Date, default: Date.now },
   },

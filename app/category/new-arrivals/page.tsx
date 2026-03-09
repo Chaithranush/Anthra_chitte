@@ -58,7 +58,7 @@ export default function NewArrivalsPage() {
             New Arrivals
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover our latest additions across Linen Digital Prints, Ganga Pattu, and Jaipuri
+            Discover our latest additions across Linen Digital Prints and Ganga Pattu
             Cotton.
           </p>
         </div>
@@ -86,9 +86,11 @@ export default function NewArrivalsPage() {
                     <span className="rounded-md bg-amber-500 px-2 py-0.5 text-xs font-semibold text-white shadow">
                       NEW
                     </span>
-                    <span className="rounded-md bg-emerald-600 px-2 py-0.5 text-xs font-semibold text-white shadow">
-                      20% OFF
-                    </span>
+                    {product.discountPercent != null && product.discountPercent > 0 && (
+                      <span className="rounded-md bg-emerald-600 px-2 py-0.5 text-xs font-semibold text-white shadow">
+                        {product.discountPercent}% OFF
+                      </span>
+                    )}
                   </div>
                   <Image
                     src={product.image}
@@ -137,7 +139,7 @@ export default function NewArrivalsPage() {
                     {product.description}
                   </p>
                   <div className="mt-2 flex items-center justify-between gap-2">
-                    <PriceDisplay price={product.price} variant="default" />
+                    <PriceDisplay price={product.price} discountPercent={product.discountPercent} variant="default" />
                     <Button size="sm" variant="secondary" className="font-medium" asChild>
                       <Link href={`/product/${product.id}`}>Add to Cart</Link>
                     </Button>

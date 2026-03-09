@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Star } from "lucide-react";
 import { StarRating } from "@/components/StarRating";
+import { ProductReviewsList } from "@/components/ProductReviewsList";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/store/useAuthStore";
 
@@ -20,15 +21,30 @@ export function ProductRatingBlock({
   reviewCount,
   size = "lg",
 }: ProductRatingBlockProps) {
-  const { isLoggedIn, token } = useAuthStore();
+  const { isLoggedIn, token, userName } = useAuthStore();
   const [displayRating, setDisplayRating] = useState(rating);
   const [displayCount, setDisplayCount] = useState(reviewCount);
   const [selectedStars, setSelectedStars] = useState(0);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
+  // Sync from props when product changes (e.g. navigation)
   useEffect(() => {
     setDisplayRating(rating);
     setDisplayCount(reviewCount);
   }, [productId, rating, reviewCount]);
+
+  // Fetch live rating from API so we show user-submitted ratings (overrides static/cached data)
+  useEffect(() => {
+    fetch(`/api/ratings/${productId}`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data) {
+          setDisplayRating(data.rating);
+          setDisplayCount(data.reviewCount);
+        }
+      })
+      .catch(() => {});
+  }, [productId]);
   const [review, setReview] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -54,6 +70,9 @@ export function ProductRatingBlock({
       setDisplayCount(data.reviewCount);
       setSelectedStars(0);
       setReview("");
+      const displayName = userName?.trim().split(/\s+/)[0] || "you";
+      setSuccessMessage(`Thanks, ${displayName}! Your rating has been saved.`);
+      setTimeout(() => setSuccessMessage(null), 5000);
     } catch {
       setError("Something went wrong");
     } finally {
@@ -62,12 +81,15 @@ export function ProductRatingBlock({
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       <StarRating
         rating={displayRating}
         reviewCount={displayCount}
         size={size}
       />
+      {displayCount > 0 && (
+        <ProductReviewsList productId={productId} reviewCount={displayCount} />
+      )}
       {isLoggedIn ? (
           <div className="space-y-2">
             <p className="text-sm font-medium text-foreground">Rate this product</p>
@@ -96,6 +118,9 @@ export function ProductRatingBlock({
               rows={2}
             />
             {error && <p className="text-sm text-destructive">{error}</p>}
+            {successMessage && (
+              <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">{successMessage}</p>
+            )}
             <Button
               size="sm"
               onClick={handleSubmit}

@@ -85,7 +85,7 @@ export function ProductCard({ product }: ProductCardProps) {
                         </h3>
                         <p className="text-sm text-muted-foreground">{product.category}</p>
                     </div>
-                    <PriceDisplay price={product.price} variant="compact" className="text-base" />
+                    <PriceDisplay price={product.price} discountPercent={product.discountPercent} variant="compact" className="text-base" />
                 </div>
             </div>
         </div>
