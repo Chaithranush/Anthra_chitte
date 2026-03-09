@@ -1,4 +1,4 @@
-import { getProducts } from "@/lib/data";
+import { getAllProductIds } from "@/lib/data";
 import { getProductById, isFabricProduct } from "@/lib/products";
 import { ProductDetails } from "@/components/ProductDetails";
 import { FabricProductDetails } from "@/components/FabricProductDetails";
@@ -18,8 +18,8 @@ function absoluteImageUrl(path: string) {
 }
 
 export async function generateStaticParams() {
-    const products = await getProducts();
-    return products.map((p) => ({ id: p.id }));
+    const ids = await getAllProductIds();
+    return ids.map((id) => ({ id }));
 }
 
 export async function generateMetadata({ params }: PageProps) {

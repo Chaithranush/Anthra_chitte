@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCartStore } from "@/store/useCartStore";
+import { useAuthStore } from "@/store/useAuthStore";
 import {
     Sheet,
     SheetContent,
@@ -18,12 +19,14 @@ import { useState, useEffect } from "react";
 
 export function CartSheet() {
     const { items, removeItem, updateQuantity, totalPrice, totalItems } = useCartStore();
+    const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
+    const hydrateFromCookie = useAuthStore((s) => s.hydrateFromCookie);
     const [mounted, setMounted] = useState(false);
 
-    // Prevent hydration error
     useEffect(() => {
+        hydrateFromCookie();
         setMounted(true);
-    }, []);
+    }, [hydrateFromCookie]);
 
     if (!mounted) {
         return (
@@ -135,9 +138,25 @@ export function CartSheet() {
                                 <span>Total</span>
                                 <span>₹{totalPrice().toLocaleString()}</span>
                             </div>
-                            <Button asChild className="w-full btn-primary text-lg py-6 shadow-md hover:shadow-lg transition-all">
-                                <Link href="/checkout">Proceed to Checkout</Link>
-                            </Button>
+                            {isLoggedIn ? (
+                                <Button asChild className="w-full btn-primary text-lg py-6 shadow-md hover:shadow-lg transition-all">
+                                    <Link href="/checkout">
+                                        Proceed to Checkout
+                                    </Link>
+                                </Button>
+                            ) : (
+                                <div className="space-y-3">
+                                    <p className="text-sm text-muted-foreground">Log in or sign up to checkout</p>
+                                    <div className="flex gap-2">
+                                        <Button asChild variant="outline" className="flex-1">
+                                            <Link href="/login?redirect=/checkout">Log in</Link>
+                                        </Button>
+                                        <Button asChild className="flex-1">
+                                            <Link href="/register?redirect=/checkout">Sign up</Link>
+                                        </Button>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </>
                 )}

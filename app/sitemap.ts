@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { getProducts } from "@/lib/data";
+import { getAllProductIds } from "@/lib/data";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://anthrachitte.com";
 
@@ -9,13 +9,15 @@ const categorySlugs = [
   "occasions",
   "sarees-by-fabric",
   "sarees-by-colour",
+  "new-arrivals",
+  "blouses",
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const products = await getProducts();
+  const productIds = await getAllProductIds();
 
-  const productEntries: MetadataRoute.Sitemap = products.map((p) => ({
-    url: `${baseUrl}/product/${p.id}`,
+  const productEntries: MetadataRoute.Sitemap = productIds.map((id) => ({
+    url: `${baseUrl}/product/${id}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.8,

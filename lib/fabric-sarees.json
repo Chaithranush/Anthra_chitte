@@ -6,7 +6,9 @@
         "price": 1200,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.34 PM (1).jpeg",
         "description": "Comfortable saree for daily wear.",
-        "isNew": true
+        "isNew": true,
+        "rating": 4.3,
+        "reviewCount": 22
     },
     {
         "id": "dailywear-2",
@@ -14,7 +16,9 @@
         "fabric": "dailywear",
         "price": 1350,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.34 PM (2).jpeg",
-        "description": "Easy to drape daily wear cotton saree."
+        "description": "Easy to drape daily wear cotton saree.",
+        "rating": 4.3,
+        "reviewCount": 24
     },
     {
         "id": "dailywear-3",
@@ -22,7 +26,9 @@
         "fabric": "dailywear",
         "price": 1500,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.34 PM.jpeg",
-        "description": "Light daily wear saree."
+        "description": "Light daily wear saree.",
+        "rating": 4.3,
+        "reviewCount": 26
     },
     {
         "id": "dailywear-4",
@@ -30,7 +36,9 @@
         "fabric": "dailywear",
         "price": 1650,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.35 PM (1).jpeg",
-        "description": "Comfortable saree for daily wear."
+        "description": "Comfortable saree for daily wear.",
+        "rating": 4.4,
+        "reviewCount": 28
     },
     {
         "id": "dailywear-5",
@@ -39,7 +47,9 @@
         "price": 1200,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.35 PM (2).jpeg",
         "description": "Easy to drape daily wear cotton saree.",
-        "isNew": true
+        "isNew": true,
+        "rating": 4.4,
+        "reviewCount": 30
     },
     {
         "id": "dailywear-6",
@@ -47,7 +57,9 @@
         "fabric": "dailywear",
         "price": 1350,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.35 PM (3).jpeg",
-        "description": "Light daily wear saree."
+        "description": "Light daily wear saree.",
+        "rating": 4.4,
+        "reviewCount": 32
     },
     {
         "id": "dailywear-7",
@@ -55,7 +67,9 @@
         "fabric": "dailywear",
         "price": 1500,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.35 PM.jpeg",
-        "description": "Comfortable saree for daily wear."
+        "description": "Comfortable saree for daily wear.",
+        "rating": 4.4,
+        "reviewCount": 34
     },
     {
         "id": "dailywear-8",
@@ -63,7 +77,9 @@
         "fabric": "dailywear",
         "price": 1650,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.36 PM (1).jpeg",
-        "description": "Easy to drape daily wear cotton saree."
+        "description": "Easy to drape daily wear cotton saree.",
+        "rating": 4.4,
+        "reviewCount": 36
     },
     {
         "id": "dailywear-9",
@@ -71,7 +87,9 @@
         "fabric": "dailywear",
         "price": 1200,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.36 PM (2).jpeg",
-        "description": "Light daily wear saree."
+        "description": "Light daily wear saree.",
+        "rating": 4.4,
+        "reviewCount": 28
     },
     {
         "id": "dailywear-10",
@@ -80,7 +98,9 @@
         "price": 1350,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.36 PM (3).jpeg",
         "description": "Comfortable saree for daily wear.",
-        "isNew": true
+        "isNew": true,
+        "rating": 5,
+        "reviewCount": 20
     },
     {
         "id": "dailywear-11",
@@ -88,7 +108,9 @@
         "fabric": "dailywear",
         "price": 1500,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.36 PM.jpeg",
-        "description": "Easy to drape daily wear cotton saree."
+        "description": "Easy to drape daily wear cotton saree.",
+        "rating": 5,
+        "reviewCount": 18
     },
     {
         "id": "dailywear-12",
@@ -96,7 +118,9 @@
         "fabric": "dailywear",
         "price": 1650,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.37 PM (1).jpeg",
-        "description": "Light daily wear saree."
+        "description": "Light daily wear saree.",
+        "rating": 4.9,
+        "reviewCount": 16
     },
     {
         "id": "dailywear-13",
@@ -104,7 +128,9 @@
         "fabric": "dailywear",
         "price": 1200,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.37 PM (2).jpeg",
-        "description": "Comfortable saree for daily wear."
+        "description": "Comfortable saree for daily wear.",
+        "rating": 4.9,
+        "reviewCount": 14
     },
     {
         "id": "dailywear-14",
@@ -112,7 +138,9 @@
         "fabric": "dailywear",
         "price": 1350,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.37 PM (3).jpeg",
-        "description": "Easy to drape daily wear cotton saree."
+        "description": "Easy to drape daily wear cotton saree.",
+        "rating": 4.9,
+        "reviewCount": 12
     },
     {
         "id": "dailywear-15",
@@ -121,7 +149,9 @@
         "price": 1500,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.37 PM.jpeg",
         "description": "Light daily wear saree.",
-        "isNew": true
+        "isNew": true,
+        "rating": 4.9,
+        "reviewCount": 10
     },
     {
         "id": "dailywear-16",
@@ -129,7 +159,9 @@
         "fabric": "dailywear",
         "price": 1650,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.38 PM (1).jpeg",
-        "description": "Comfortable saree for daily wear."
+        "description": "Comfortable saree for daily wear.",
+        "rating": 4.9,
+        "reviewCount": 8
     },
     {
         "id": "dailywear-17",
@@ -137,7 +169,9 @@
         "fabric": "dailywear",
         "price": 1200,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.38 PM (2).jpeg",
-        "description": "Easy to drape daily wear cotton saree."
+        "description": "Easy to drape daily wear cotton saree.",
+        "rating": 4.9,
+        "reviewCount": 66
     },
     {
         "id": "dailywear-18",
@@ -145,7 +179,9 @@
         "fabric": "dailywear",
         "price": 1350,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.38 PM (3).jpeg",
-        "description": "Light daily wear saree."
+        "description": "Light daily wear saree.",
+        "rating": 4.9,
+        "reviewCount": 64
     },
     {
         "id": "dailywear-19",
@@ -153,7 +189,9 @@
         "fabric": "dailywear",
         "price": 1500,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.38 PM.jpeg",
-        "description": "Comfortable saree for daily wear."
+        "description": "Comfortable saree for daily wear.",
+        "rating": 4.9,
+        "reviewCount": 62
     },
     {
         "id": "dailywear-20",
@@ -161,7 +199,9 @@
         "fabric": "dailywear",
         "price": 1650,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.39 PM (1).jpeg",
-        "description": "Easy to drape daily wear cotton saree."
+        "description": "Easy to drape daily wear cotton saree.",
+        "rating": 4.7,
+        "reviewCount": 38
     },
     {
         "id": "dailywear-21",
@@ -169,7 +209,9 @@
         "fabric": "dailywear",
         "price": 1200,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.39 PM (2).jpeg",
-        "description": "Light daily wear saree."
+        "description": "Light daily wear saree.",
+        "rating": 4.6,
+        "reviewCount": 36
     },
     {
         "id": "dailywear-22",
@@ -177,7 +219,9 @@
         "fabric": "dailywear",
         "price": 1350,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.39 PM (3).jpeg",
-        "description": "Comfortable saree for daily wear."
+        "description": "Comfortable saree for daily wear.",
+        "rating": 4.6,
+        "reviewCount": 34
     },
     {
         "id": "dailywear-23",
@@ -185,7 +229,9 @@
         "fabric": "dailywear",
         "price": 1500,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.39 PM.jpeg",
-        "description": "Easy to drape daily wear cotton saree."
+        "description": "Easy to drape daily wear cotton saree.",
+        "rating": 4.6,
+        "reviewCount": 32
     },
     {
         "id": "dailywear-24",
@@ -193,7 +239,9 @@
         "fabric": "dailywear",
         "price": 1650,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.40 PM (1).jpeg",
-        "description": "Light daily wear saree."
+        "description": "Light daily wear saree.",
+        "rating": 4.6,
+        "reviewCount": 30
     },
     {
         "id": "dailywear-25",
@@ -201,7 +249,9 @@
         "fabric": "dailywear",
         "price": 1200,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.40 PM (2).jpeg",
-        "description": "Comfortable saree for daily wear."
+        "description": "Comfortable saree for daily wear.",
+        "rating": 4.6,
+        "reviewCount": 28
     },
     {
         "id": "dailywear-26",
@@ -209,7 +259,9 @@
         "fabric": "dailywear",
         "price": 1350,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.40 PM (3).jpeg",
-        "description": "Easy to drape daily wear cotton saree."
+        "description": "Easy to drape daily wear cotton saree.",
+        "rating": 4.6,
+        "reviewCount": 36
     },
     {
         "id": "dailywear-27",
@@ -217,7 +269,9 @@
         "fabric": "dailywear",
         "price": 1500,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.40 PM.jpeg",
-        "description": "Light daily wear saree."
+        "description": "Light daily wear saree.",
+        "rating": 4.6,
+        "reviewCount": 34
     },
     {
         "id": "dailywear-28",
@@ -225,7 +279,9 @@
         "fabric": "dailywear",
         "price": 1650,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.41 PM (1).jpeg",
-        "description": "Comfortable saree for daily wear."
+        "description": "Comfortable saree for daily wear.",
+        "rating": 4.6,
+        "reviewCount": 32
     },
     {
         "id": "dailywear-29",
@@ -233,7 +289,9 @@
         "fabric": "dailywear",
         "price": 1200,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.41 PM (2).jpeg",
-        "description": "Easy to drape daily wear cotton saree."
+        "description": "Easy to drape daily wear cotton saree.",
+        "rating": 4.6,
+        "reviewCount": 30
     },
     {
         "id": "dailywear-30",
@@ -241,7 +299,9 @@
         "fabric": "dailywear",
         "price": 1350,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.41 PM (3).jpeg",
-        "description": "Light daily wear saree."
+        "description": "Light daily wear saree.",
+        "rating": 4.3,
+        "reviewCount": 56
     },
     {
         "id": "dailywear-31",
@@ -249,7 +309,9 @@
         "fabric": "dailywear",
         "price": 1500,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.41 PM (4).jpeg",
-        "description": "Comfortable saree for daily wear."
+        "description": "Comfortable saree for daily wear.",
+        "rating": 4.3,
+        "reviewCount": 54
     },
     {
         "id": "dailywear-32",
@@ -257,7 +319,9 @@
         "fabric": "dailywear",
         "price": 1650,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.41 PM.jpeg",
-        "description": "Easy to drape daily wear cotton saree."
+        "description": "Easy to drape daily wear cotton saree.",
+        "rating": 4.3,
+        "reviewCount": 52
     },
     {
         "id": "dailywear-33",
@@ -265,7 +329,9 @@
         "fabric": "dailywear",
         "price": 1200,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.42 PM (1).jpeg",
-        "description": "Light daily wear saree."
+        "description": "Light daily wear saree.",
+        "rating": 4.3,
+        "reviewCount": 50
     },
     {
         "id": "dailywear-34",
@@ -273,7 +339,9 @@
         "fabric": "dailywear",
         "price": 1350,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.42 PM (2).jpeg",
-        "description": "Comfortable saree for daily wear."
+        "description": "Comfortable saree for daily wear.",
+        "rating": 4.3,
+        "reviewCount": 48
     },
     {
         "id": "dailywear-35",
@@ -281,7 +349,9 @@
         "fabric": "dailywear",
         "price": 1500,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.42 PM (3).jpeg",
-        "description": "Easy to drape daily wear cotton saree."
+        "description": "Easy to drape daily wear cotton saree.",
+        "rating": 4.3,
+        "reviewCount": 56
     },
     {
         "id": "dailywear-36",
@@ -289,7 +359,9 @@
         "fabric": "dailywear",
         "price": 1650,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.42 PM.jpeg",
-        "description": "Light daily wear saree."
+        "description": "Light daily wear saree.",
+        "rating": 4.3,
+        "reviewCount": 54
     },
     {
         "id": "dailywear-37",
@@ -297,7 +369,9 @@
         "fabric": "dailywear",
         "price": 1200,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.43 PM (1).jpeg",
-        "description": "Comfortable saree for daily wear."
+        "description": "Comfortable saree for daily wear.",
+        "rating": 4.3,
+        "reviewCount": 52
     },
     {
         "id": "dailywear-38",
@@ -305,7 +379,9 @@
         "fabric": "dailywear",
         "price": 1350,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.43 PM (2).jpeg",
-        "description": "Easy to drape daily wear cotton saree."
+        "description": "Easy to drape daily wear cotton saree.",
+        "rating": 4.3,
+        "reviewCount": 50
     },
     {
         "id": "dailywear-39",
@@ -313,7 +389,9 @@
         "fabric": "dailywear",
         "price": 1500,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.43 PM (3).jpeg",
-        "description": "Light daily wear saree."
+        "description": "Light daily wear saree.",
+        "rating": 4.3,
+        "reviewCount": 48
     },
     {
         "id": "dailywear-40",
@@ -321,7 +399,9 @@
         "fabric": "dailywear",
         "price": 1650,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.43 PM.jpeg",
-        "description": "Comfortable saree for daily wear."
+        "description": "Comfortable saree for daily wear.",
+        "rating": 4.8,
+        "reviewCount": 24
     },
     {
         "id": "dailywear-41",
@@ -329,7 +409,9 @@
         "fabric": "dailywear",
         "price": 1200,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.44 PM (1).jpeg",
-        "description": "Easy to drape daily wear cotton saree."
+        "description": "Easy to drape daily wear cotton saree.",
+        "rating": 4.8,
+        "reviewCount": 22
     },
     {
         "id": "dailywear-42",
@@ -337,7 +419,9 @@
         "fabric": "dailywear",
         "price": 1350,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.44 PM (2).jpeg",
-        "description": "Light daily wear saree."
+        "description": "Light daily wear saree.",
+        "rating": 4.8,
+        "reviewCount": 20
     },
     {
         "id": "dailywear-43",
@@ -345,7 +429,9 @@
         "fabric": "dailywear",
         "price": 1500,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.44 PM (3).jpeg",
-        "description": "Comfortable saree for daily wear."
+        "description": "Comfortable saree for daily wear.",
+        "rating": 4.8,
+        "reviewCount": 18
     },
     {
         "id": "dailywear-44",
@@ -353,7 +439,9 @@
         "fabric": "dailywear",
         "price": 1650,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.44 PM.jpeg",
-        "description": "Easy to drape daily wear cotton saree."
+        "description": "Easy to drape daily wear cotton saree.",
+        "rating": 4.8,
+        "reviewCount": 26
     },
     {
         "id": "dailywear-45",
@@ -361,7 +449,9 @@
         "fabric": "dailywear",
         "price": 1200,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.45 PM (1).jpeg",
-        "description": "Light daily wear saree."
+        "description": "Light daily wear saree.",
+        "rating": 4.8,
+        "reviewCount": 24
     },
     {
         "id": "dailywear-46",
@@ -369,7 +459,9 @@
         "fabric": "dailywear",
         "price": 1350,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.45 PM (2).jpeg",
-        "description": "Comfortable saree for daily wear."
+        "description": "Comfortable saree for daily wear.",
+        "rating": 4.8,
+        "reviewCount": 22
     },
     {
         "id": "dailywear-47",
@@ -377,7 +469,9 @@
         "fabric": "dailywear",
         "price": 1500,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.45 PM (3).jpeg",
-        "description": "Easy to drape daily wear cotton saree."
+        "description": "Easy to drape daily wear cotton saree.",
+        "rating": 4.8,
+        "reviewCount": 20
     },
     {
         "id": "dailywear-48",
@@ -385,7 +479,9 @@
         "fabric": "dailywear",
         "price": 1650,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.45 PM.jpeg",
-        "description": "Light daily wear saree."
+        "description": "Light daily wear saree.",
+        "rating": 4.8,
+        "reviewCount": 18
     },
     {
         "id": "dailywear-49",
@@ -393,7 +489,9 @@
         "fabric": "dailywear",
         "price": 1200,
         "image": "/assets/dailywear/WhatsApp Image 2026-03-02 at 12.29.46 PM.jpeg",
-        "description": "Comfortable saree for daily wear."
+        "description": "Comfortable saree for daily wear.",
+        "rating": 4.7,
+        "reviewCount": 16
     },
     {
         "id": "gangapattu-1",
@@ -402,7 +500,9 @@
         "price": 5500,
         "image": "/assets/gangapattusarees/WhatsApp Image 2026-03-04 at 9.42.11 PM.jpeg",
         "description": "Rich Ganga Pattu saree for special occasions.",
-        "isNew": true
+        "isNew": true,
+        "rating": 4.3,
+        "reviewCount": 48
     },
     {
         "id": "gangapattu-2",
@@ -410,7 +510,9 @@
         "fabric": "ganga pattu",
         "price": 6200,
         "image": "/assets/gangapattusarees/WhatsApp Image 2026-03-04 at 9.42.12 PM (1).jpeg",
-        "description": "Vibrant and elegant Ganga Pattu Saree."
+        "description": "Vibrant and elegant Ganga Pattu Saree.",
+        "rating": 4.3,
+        "reviewCount": 50
     },
     {
         "id": "gangapattu-3",
@@ -419,7 +521,9 @@
         "price": 5800,
         "image": "/assets/gangapattusarees/WhatsApp Image 2026-03-04 at 9.42.12 PM.jpeg",
         "description": "Classic Ganga Pattu saree with detailed border.",
-        "isNew": true
+        "isNew": true,
+        "rating": 4.3,
+        "reviewCount": 52
     },
     {
         "id": "gangapattu-4",
@@ -427,7 +531,9 @@
         "fabric": "ganga pattu",
         "price": 6000,
         "image": "/assets/gangapattusarees/WhatsApp Image 2026-03-04 at 9.42.13 PM.jpeg",
-        "description": "Elegant Ganga Pattu saree with rich weave."
+        "description": "Elegant Ganga Pattu saree with rich weave.",
+        "rating": 4.3,
+        "reviewCount": 54
     },
     {
         "id": "gangapattu-5",
@@ -436,7 +542,9 @@
         "price": 6400,
         "image": "/assets/gangapattusarees/WhatsApp Image 2026-03-04 at 9.42.14 PM (1).jpeg",
         "description": "Premium Ganga Pattu saree.",
-        "isNew": true
+        "isNew": true,
+        "rating": 4.3,
+        "reviewCount": 56
     },
     {
         "id": "gangapattu-6",
@@ -444,7 +552,9 @@
         "fabric": "ganga pattu",
         "price": 5900,
         "image": "/assets/gangapattusarees/WhatsApp Image 2026-03-04 at 9.42.14 PM.jpeg",
-        "description": "Traditional Ganga Pattu saree."
+        "description": "Traditional Ganga Pattu saree.",
+        "rating": 4.4,
+        "reviewCount": 58
     },
     {
         "id": "gangapattu-7",
@@ -452,7 +562,9 @@
         "fabric": "ganga pattu",
         "price": 6100,
         "image": "/assets/gangapattusarees/WhatsApp Image 2026-03-04 at 9.42.15 PM.jpeg",
-        "description": "Elegant Ganga Pattu saree."
+        "description": "Elegant Ganga Pattu saree.",
+        "rating": 4.4,
+        "reviewCount": 60
     },
     {
         "id": "jaipur-1",
@@ -461,7 +573,9 @@
         "price": 3200,
         "image": "/assets/jaipuricottonsarees/WhatsApp Image 2026-03-04 at 1.05.46 PM.jpeg",
         "description": "Elegant Jaipur cotton saree.",
-        "isNew": true
+        "isNew": true,
+        "rating": 4.9,
+        "reviewCount": 38
     },
     {
         "id": "jaipur-2",
@@ -469,7 +583,9 @@
         "fabric": "jaipuri cotton",
         "price": 3500,
         "image": "/assets/jaipuricottonsarees/WhatsApp Image 2026-03-04 at 1.05.52 PM.jpeg",
-        "description": "Traditional block print Jaipur cotton saree."
+        "description": "Traditional block print Jaipur cotton saree.",
+        "rating": 4.8,
+        "reviewCount": 36
     },
     {
         "id": "jaipur-3",
@@ -478,7 +594,9 @@
         "price": 2800,
         "image": "/assets/jaipuricottonsarees/WhatsApp Image 2026-03-04 at 1.06.20 PM.jpeg",
         "description": "Lightweight pure cotton Jaipur saree.",
-        "isNew": true
+        "isNew": true,
+        "rating": 4.8,
+        "reviewCount": 34
     },
     {
         "id": "jaipur-4",
@@ -486,7 +604,9 @@
         "fabric": "jaipuri cotton",
         "price": 3100,
         "image": "/assets/jaipuricottonsarees/WhatsApp Image 2026-03-04 at 1.06.30 PM.jpeg",
-        "description": "Handcrafted Jaipur cotton saree."
+        "description": "Handcrafted Jaipur cotton saree.",
+        "rating": 4.8,
+        "reviewCount": 32
     },
     {
         "id": "jaipur-5",
@@ -495,7 +615,9 @@
         "price": 3400,
         "image": "/assets/jaipuricottonsarees/WhatsApp Image 2026-03-04 at 1.06.42 PM.jpeg",
         "description": "Classic block print Jaipur cotton saree.",
-        "isNew": true
+        "isNew": true,
+        "rating": 4.8,
+        "reviewCount": 30
     },
     {
         "id": "jaipur-6",
@@ -503,7 +625,9 @@
         "fabric": "jaipuri cotton",
         "price": 3000,
         "image": "/assets/jaipuricottonsarees/WhatsApp Image 2026-03-04 at 1.07.06 PM.jpeg",
-        "description": "Soft pure cotton Jaipur saree."
+        "description": "Soft pure cotton Jaipur saree.",
+        "rating": 4.8,
+        "reviewCount": 28
     },
     {
         "id": "jaipur-7",
@@ -511,7 +635,9 @@
         "fabric": "jaipuri cotton",
         "price": 3600,
         "image": "/assets/jaipuricottonsarees/WhatsApp Image 2026-03-04 at 1.07.45 PM.jpeg",
-        "description": "Elegant Jaipur cotton saree."
+        "description": "Elegant Jaipur cotton saree.",
+        "rating": 4.8,
+        "reviewCount": 36
     },
     {
         "id": "jaipur-8",
@@ -519,6 +645,8 @@
         "fabric": "jaipuri cotton",
         "price": 3300,
         "image": "/assets/jaipuricottonsarees/WhatsApp Image 2026-03-04 at 1.08.12 PM.jpeg",
-        "description": "Lightweight Jaipur cotton saree."
+        "description": "Lightweight Jaipur cotton saree.",
+        "rating": 4.8,
+        "reviewCount": 34
     }
 ]

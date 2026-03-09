@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
-import { Menu, Search, Heart, User } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Menu, Search, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CartSheet } from "./CartSheet";
 import { FavoritesSheet } from "./FavoritesSheet";
+import { useAuthStore } from "@/store/useAuthStore";
 import {
     Sheet,
     SheetContent,
@@ -14,7 +15,6 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet";
-import { cn } from "@/lib/utils";
 
 const links = [
     { name: "New Arrivals", href: "/category/new-arrivals" },
@@ -23,9 +23,15 @@ const links = [
 ];
 
 export function Navbar() {
-    const [isScrolled, setIsScrolled] = useState(false);
+    const [mounted, setMounted] = useState(false);
+    const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
+    const hydrateFromCookie = useAuthStore((s) => s.hydrateFromCookie);
 
-    // Add scroll listener logic if needed for sticky header styling
+    useEffect(() => {
+        hydrateFromCookie();
+        const t = setTimeout(() => setMounted(true), 0);
+        return () => clearTimeout(t);
+    }, [hydrateFromCookie]);
 
     return (
         <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -53,6 +59,15 @@ export function Navbar() {
                                         {link.name}
                                     </Link>
                                 ))}
+                                {mounted && isLoggedIn && (
+                                    <Link
+                                        href="/account/orders"
+                                        className="text-lg font-medium hover:text-primary transition-colors border-b pb-2 flex items-center gap-2"
+                                    >
+                                        <User className="w-5 h-5" />
+                                        My orders
+                                    </Link>
+                                )}
                             </div>
                         </SheetContent>
                     </Sheet>
@@ -95,6 +110,14 @@ export function Navbar() {
                         <Search className="h-5 w-5" />
                         <span className="sr-only">Search</span>
                     </Button>
+                    {mounted && isLoggedIn && (
+                        <Button variant="ghost" size="icon" asChild title="My orders">
+                            <Link href="/account/orders">
+                                <User className="h-5 w-5" />
+                                <span className="sr-only">Profile & orders</span>
+                            </Link>
+                        </Button>
+                    )}
                     <FavoritesSheet />
                     <CartSheet />
                 </div>

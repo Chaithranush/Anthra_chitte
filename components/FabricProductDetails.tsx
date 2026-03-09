@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { PriceDisplay } from "@/components/PriceDisplay";
+import { ProductRatingBlock } from "@/components/ProductRatingBlock";
 import { ShoppingCart, Heart, Info } from "lucide-react";
 import { useCartStore } from "@/store/useCartStore";
 import type { ProductWithFabric } from "@/lib/products";
@@ -125,6 +126,12 @@ export function FabricProductDetails({ product }: FabricProductDetailsProps) {
         <h1 className="text-3xl font-bold font-serif text-primary">
           {product.fabric === "dailywear" ? "Linen Digital Prints" : product.fabric} Saree
         </h1>
+        <ProductRatingBlock
+          productId={product.id}
+          rating={product.rating ?? 4.5}
+          reviewCount={product.reviewCount ?? 0}
+          size="lg"
+        />
         <PriceDisplay price={product.price} className="text-xl [&_p:last-child]:text-primary [&_span:last-child]:text-primary" />
         {product.fabric && product.fabric !== "dailywear" && (
           <p className="text-sm text-muted-foreground">

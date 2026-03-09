@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Product } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { PriceDisplay } from "@/components/PriceDisplay";
+import { ProductRatingBlock } from "@/components/ProductRatingBlock";
 import { useCartStore } from "@/store/useCartStore";
 import { Heart, Info, Ruler } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
@@ -35,6 +36,12 @@ export function ProductDetails({ product }: ProductDetailsProps) {
         <div className="flex flex-col space-y-6">
             <div className="space-y-2">
                 <h1 className="text-3xl font-bold font-serif text-primary">{product.name}</h1>
+                <ProductRatingBlock
+                    productId={product.id}
+                    rating={product.rating ?? 4.5}
+                    reviewCount={product.reviewCount ?? 0}
+                    size="lg"
+                />
                 <PriceDisplay price={product.price} className="text-xl [&_p:last-child]:text-primary [&_span:last-child]:text-primary" />
             </div>
 
