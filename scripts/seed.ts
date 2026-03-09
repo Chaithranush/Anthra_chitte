@@ -10,7 +10,7 @@ dotenv.config({ path: path.join(process.cwd(), ".env.local") });
 import * as fs from "fs";
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = "mongodb+srv://anthrachitte_db_user:wESQWeDIXtVDoCAi@ecom.8vrh2ca.mongodb.net/anthrachitte";
 if (!MONGODB_URI) {
   console.error("MONGODB_URI not set. Create .env.local with MONGODB_URI.");
   process.exit(1);
