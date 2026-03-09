@@ -1,5 +1,8 @@
-import { getProducts } from "@/lib/data";
+import { getAllProductIds } from "@/lib/data";
 import { getProductById, isFabricProduct } from "@/lib/products";
+
+// Ensure fresh product data (including ratings) on each request
+export const dynamic = "force-dynamic";
 import { ProductDetails } from "@/components/ProductDetails";
 import { FabricProductDetails } from "@/components/FabricProductDetails";
 import { Navbar } from "@/components/Navbar";
@@ -18,8 +21,8 @@ function absoluteImageUrl(path: string) {
 }
 
 export async function generateStaticParams() {
-    const products = await getProducts();
-    return products.map((p) => ({ id: p.id }));
+    const ids = await getAllProductIds();
+    return ids.map((id) => ({ id }));
 }
 
 export async function generateMetadata({ params }: PageProps) {

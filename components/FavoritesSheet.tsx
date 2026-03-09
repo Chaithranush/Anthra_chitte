@@ -86,7 +86,7 @@ export function FavoritesSheet() {
                                                 {isFabricSaree ? "Saree" : item.name}
                                             </h4>
                                         </Link>
-                                        <PriceDisplay price={item.price} variant="compact" />
+                                        <PriceDisplay price={item.price} discountPercent={item.discountPercent} variant="compact" />
                                         <Button
                                             size="sm"
                                             variant="secondary"

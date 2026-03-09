@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useCartStore } from "@/store/useCartStore";
+import { useCartStore, getSareeItemPrice, READYMADE_ADDON, POCKETS_ADDON, PLATFORM_FEE } from "@/store/useCartStore";
+import { useAuthStore } from "@/store/useAuthStore";
 import {
     Sheet,
     SheetContent,
@@ -17,13 +18,15 @@ import { Separator } from "@/components/ui/separator";
 import { useState, useEffect } from "react";
 
 export function CartSheet() {
-    const { items, removeItem, updateQuantity, totalPrice, totalItems } = useCartStore();
+    const { items, removeItem, updateQuantity, subtotalPrice, platformFee, totalPrice, totalItems } = useCartStore();
+    const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
+    const hydrateFromCookie = useAuthStore((s) => s.hydrateFromCookie);
     const [mounted, setMounted] = useState(false);
 
-    // Prevent hydration error
     useEffect(() => {
+        hydrateFromCookie();
         setMounted(true);
-    }, []);
+    }, [hydrateFromCookie]);
 
     if (!mounted) {
         return (
@@ -92,6 +95,18 @@ export function CartSheet() {
                                                     {item.config.palluType === "pleated" && item.config.palluLength && item.config.palluWidth && (
                                                         <p>Pallu Size: {item.config.palluLength} x {item.config.palluWidth} inch</p>
                                                     )}
+                                                    {(item.config.readymadeAddon || item.config.pocketsAddon) ? (
+                                                        <div className="pt-1 space-y-0.5 text-foreground">
+                                                            <p>Base: ₹{item.price.toLocaleString()} × {item.quantity}</p>
+                                                            {item.config.readymadeAddon ? (
+                                                                <p>Readymade: +₹{READYMADE_ADDON} × {item.quantity}</p>
+                                                            ) : null}
+                                                            {item.config.pocketsAddon ? (
+                                                                <p>With pockets: +₹{POCKETS_ADDON} × {item.quantity}</p>
+                                                            ) : null}
+                                                            <p className="font-medium">Total: ₹{(getSareeItemPrice(item) * item.quantity).toLocaleString()}</p>
+                                                        </div>
+                                                    ) : null}
                                                 </div>
                                             )}
                                             <div className="flex items-center justify-between mt-2">
@@ -114,7 +129,11 @@ export function CartSheet() {
                                                         <Plus className="w-3 h-3" />
                                                     </Button>
                                                 </div>
-                                                <PriceDisplay price={item.price} quantity={item.quantity} variant="compact" />
+                                                {(item.config?.readymadeAddon || item.config?.pocketsAddon) ? (
+                                                    <span className="font-semibold">₹{(getSareeItemPrice(item) * item.quantity).toLocaleString()}</span>
+                                                ) : (
+                                                    <PriceDisplay price={getSareeItemPrice(item)} quantity={item.quantity} discountPercent={item.discountPercent} variant="compact" />
+                                                )}
                                             </div>
                                         </div>
                                         <Button
@@ -131,13 +150,41 @@ export function CartSheet() {
                         </div>
                         <Separator className="my-4" />
                         <div className="space-y-4 mb-4">
-                            <div className="flex justify-between items-center text-lg font-bold text-foreground">
+                            <div className="space-y-1 text-sm">
+                                <div className="flex justify-between text-muted-foreground">
+                                    <span>Subtotal</span>
+                                    <span>₹{subtotalPrice().toLocaleString()}</span>
+                                </div>
+                                {platformFee() > 0 && (
+                                    <div className="flex justify-between text-muted-foreground">
+                                        <span>Shipping fee (orders under ₹2,000)</span>
+                                        <span>+₹{PLATFORM_FEE}</span>
+                                    </div>
+                                )}
+                            </div>
+                            <div className="flex justify-between items-center text-lg font-bold text-foreground pt-2 border-t border-border">
                                 <span>Total</span>
                                 <span>₹{totalPrice().toLocaleString()}</span>
                             </div>
-                            <Button asChild className="w-full btn-primary text-lg py-6 shadow-md hover:shadow-lg transition-all">
-                                <Link href="/checkout">Proceed to Checkout</Link>
-                            </Button>
+                            {isLoggedIn ? (
+                                <Button asChild className="w-full btn-primary text-lg py-6 shadow-md hover:shadow-lg transition-all">
+                                    <Link href="/checkout">
+                                        Proceed to Checkout
+                                    </Link>
+                                </Button>
+                            ) : (
+                                <div className="space-y-3">
+                                    <p className="text-sm text-muted-foreground">Log in or sign up to checkout</p>
+                                    <div className="flex gap-2">
+                                        <Button asChild variant="outline" className="flex-1">
+                                            <Link href="/login?redirect=/checkout">Log in</Link>
+                                        </Button>
+                                        <Button asChild className="flex-1">
+                                            <Link href="/register?redirect=/checkout">Sign up</Link>
+                                        </Button>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </>
                 )}

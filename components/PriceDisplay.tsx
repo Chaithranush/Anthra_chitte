@@ -9,25 +9,26 @@ interface PriceDisplayProps {
   className?: string;
 }
 
-const DEFAULT_DISCOUNT = 20;
-
 export function PriceDisplay({
   price,
   quantity = 1,
-  discountPercent = DEFAULT_DISCOUNT,
+  discountPercent,
   variant = "default",
   className = "",
 }: PriceDisplayProps) {
-  const originalPrice = Math.round(price / (1 - discountPercent / 100));
+  const hasDiscount = discountPercent !== undefined && discountPercent > 0;
+  const originalPrice = hasDiscount ? Math.round(price / (1 - discountPercent / 100)) : price;
   const displayPrice = price * quantity;
   const displayOriginal = originalPrice * quantity;
 
   if (variant === "compact") {
     return (
       <div className={`flex items-center gap-2 ${className}`}>
-        <span className="text-sm text-muted-foreground line-through">
-          ₹{displayOriginal.toLocaleString("en-IN")}
-        </span>
+        {hasDiscount && (
+          <span className="text-sm text-muted-foreground line-through">
+            ₹{displayOriginal.toLocaleString("en-IN")}
+          </span>
+        )}
         <span className="font-bold text-foreground">
           ₹{displayPrice.toLocaleString("en-IN")}
         </span>
@@ -38,9 +39,11 @@ export function PriceDisplay({
   if (variant === "inline") {
     return (
       <span className={className}>
-        <span className="text-muted-foreground line-through text-sm mr-1">
-          ₹{displayOriginal.toLocaleString("en-IN")}
-        </span>
+        {hasDiscount && (
+          <span className="text-muted-foreground line-through text-sm mr-1">
+            ₹{displayOriginal.toLocaleString("en-IN")}
+          </span>
+        )}
         <span className="font-bold">₹{displayPrice.toLocaleString("en-IN")}</span>
       </span>
     );
@@ -48,9 +51,11 @@ export function PriceDisplay({
 
   return (
     <div className={`flex flex-col gap-0.5 ${className}`}>
-      <p className="text-sm text-muted-foreground line-through">
-        ₹{displayOriginal.toLocaleString("en-IN")}
-      </p>
+      {hasDiscount && (
+        <p className="text-sm text-muted-foreground line-through">
+          ₹{displayOriginal.toLocaleString("en-IN")}
+        </p>
+      )}
       <p className="text-lg font-bold text-foreground">
         ₹{displayPrice.toLocaleString("en-IN")}
       </p>

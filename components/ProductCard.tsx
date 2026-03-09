@@ -6,6 +6,7 @@ import { Heart, ShoppingCart } from "lucide-react";
 import { Product } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { PriceDisplay } from "@/components/PriceDisplay";
+import { StarRating } from "@/components/StarRating";
 import { useCartStore } from "@/store/useCartStore";
 import { cn } from "@/lib/utils";
 
@@ -73,6 +74,7 @@ export function ProductCard({ product }: ProductCardProps) {
             </div>
 
             <div className="flex flex-col space-y-1">
+                <StarRating rating={product.rating ?? 4.5} reviewCount={product.reviewCount} size="sm" />
                 <div className="flex justify-between items-start">
                     <div>
                         <h3 className="text-base font-medium text-foreground">
@@ -83,7 +85,7 @@ export function ProductCard({ product }: ProductCardProps) {
                         </h3>
                         <p className="text-sm text-muted-foreground">{product.category}</p>
                     </div>
-                    <PriceDisplay price={product.price} variant="compact" className="text-base" />
+                    <PriceDisplay price={product.price} discountPercent={product.discountPercent} variant="compact" className="text-base" />
                 </div>
             </div>
         </div>
