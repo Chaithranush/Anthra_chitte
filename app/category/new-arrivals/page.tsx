@@ -21,6 +21,7 @@ type FabricItem = {
   isNew?: boolean;
   rating?: number;
   reviewCount?: number;
+  discountPercent?: number;
 };
 
 export default function NewArrivalsPage() {
