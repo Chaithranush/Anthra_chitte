@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Navbar } from "@/components/Navbar";
@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/store/useAuthStore";
 import { ArrowLeft } from "lucide-react";
 
-export default function LoginPage() {
+function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -119,5 +119,21 @@ export default function LoginPage() {
 
       <Footer />
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-background flex flex-col">
+        <Navbar />
+        <main className="flex-1 container mx-auto max-w-md px-4 py-16 sm:px-6 flex items-center justify-center" role="main">
+          <p className="text-muted-foreground">Loading…</p>
+        </main>
+        <Footer />
+      </div>
+    }>
+      <LoginForm />
+    </Suspense>
   );
 }
