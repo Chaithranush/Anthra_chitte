@@ -1,9 +1,32 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { JsonLd } from "@/components/JsonLd";
 import { Sparkles, Shirt, Gift } from "lucide-react";
+import { absoluteUrl, defaultDescription, getSiteUrl, SITE_NAME } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: { absolute: `${SITE_NAME} | Handcrafted Traditional Wear & Sarees Online` },
+  description: defaultDescription,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: `${SITE_NAME} | Handcrafted Traditional Wear & Sarees Online`,
+    description: defaultDescription,
+    url: getSiteUrl(),
+    type: "website",
+    locale: "en_IN",
+    siteName: SITE_NAME,
+    images: [{ url: absoluteUrl("/logo.png"), width: 512, height: 512, alt: SITE_NAME }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} | Handcrafted Traditional Wear`,
+    description: defaultDescription,
+  },
+};
 
 const categories = [
   { name: "New Arrivals", href: "/category/new-arrivals", icon: Gift, desc: "Fresh arrivals" },
@@ -18,8 +41,33 @@ const values = [
 ];
 
 export default function Home() {
+  const base = getSiteUrl();
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${base}#organization`,
+        name: SITE_NAME,
+        url: base,
+        logo: absoluteUrl("/logo.png"),
+        description: defaultDescription,
+        sameAs: [] as string[],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${base}#website`,
+        name: SITE_NAME,
+        url: base,
+        inLanguage: "en-IN",
+        publisher: { "@id": `${base}#organization` },
+      },
+    ],
+  };
+
   return (
     <main className="min-h-screen flex flex-col bg-background selection:bg-secondary selection:text-secondary-foreground">
+      <JsonLd data={structuredData} />
       <Navbar />
 
       <Hero />

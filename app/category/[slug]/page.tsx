@@ -1,7 +1,9 @@
+import type { Metadata } from "next";
 import { getProducts } from "@/lib/data";
 import { ProductCard } from "@/components/ProductCard";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { getSiteUrl, SITE_NAME } from "@/lib/seo";
 
 interface PageProps {
     params: Promise<{
@@ -9,12 +11,26 @@ interface PageProps {
     }>;
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { slug } = await params;
-    const title = slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    const title = slug.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+    const desc = `Shop ${title} at ${SITE_NAME}. Handcrafted traditional wear, sarees with pockets, and Maternity Flexifit™.`;
+    const base = getSiteUrl().replace(/\/$/, "");
+    const path = `/category/${slug}`;
     return {
-        title: `${title} | Anthra Chitte`,
-        description: `Shop ${title} at Anthra Chitte. Handcrafted traditional wear, sarees with pockets, and Maternity Flexifit™.`,
+        title: `${title} | ${SITE_NAME}`,
+        description: desc,
+        alternates: { canonical: path },
+        openGraph: {
+            title: `${title} | ${SITE_NAME}`,
+            description: desc,
+            url: `${base}${path}`,
+            type: "website",
+            locale: "en_IN",
+            siteName: SITE_NAME,
+        },
+        twitter: { card: "summary_large_image", title: `${title} | ${SITE_NAME}`, description: desc },
+        robots: { index: true, follow: true },
     };
 }
 

@@ -1,9 +1,16 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
+import { getSiteUrl } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://anthrachitte.com";
+  const base = getSiteUrl().replace(/\/$/, "");
   return {
-    rules: { userAgent: "*", allow: "/", disallow: ["/api/"] },
-    sitemap: `${baseUrl}/sitemap.xml`,
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/checkout", "/login", "/register", "/account", "/api/"],
+      },
+    ],
+    sitemap: `${base}/sitemap.xml`,
   };
 }

@@ -1,16 +1,18 @@
 import { getAllProductIds } from "@/lib/data";
 import { getProductById, isFabricProduct } from "@/lib/products";
-
-// Ensure fresh product data (including ratings) on each request
-export const dynamic = "force-dynamic";
 import { ProductDetails } from "@/components/ProductDetails";
 import { FabricProductDetails } from "@/components/FabricProductDetails";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { getSiteUrl, SITE_NAME } from "@/lib/seo";
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://anthrachitte.com";
+/** Fresh product data (including ratings) on each request */
+export const dynamic = "force-dynamic";
+
+const baseUrl = getSiteUrl();
 
 interface PageProps {
     params: Promise<{ id: string }>;
@@ -30,18 +32,27 @@ export async function generateMetadata({ params }: PageProps) {
     const product = await getProductById(id);
     if (!product) return { title: "Product Not Found" };
 
-    const displayName = isFabricProduct(product) ? "Saree" : product.name;
+    const displayName = isFabricProduct(product) ? product.name || "Saree" : product.name;
     const imageUrl = absoluteImageUrl(product.image);
+    const pageUrl = `${baseUrl.replace(/\/$/, "")}/product/${id}`;
     return {
-        title: `${displayName} | Anthra Chitte`,
-        description: product.description,
+        title: `${displayName} | ${SITE_NAME}`,
+        description: product.description.slice(0, 160),
+        alternates: { canonical: `/product/${id}` },
         openGraph: {
             title: displayName,
-            description: product.description,
+            description: product.description.slice(0, 160),
+            url: pageUrl,
             images: [{ url: imageUrl, width: 800, height: 1000, alt: displayName }],
             type: "website",
+            locale: "en_IN",
         },
-        twitter: { card: "summary_large_image", title: displayName, description: product.description },
+        twitter: {
+            card: "summary_large_image",
+            title: displayName,
+            description: product.description.slice(0, 160),
+        },
+        robots: { index: true, follow: true },
     };
 }
 
@@ -52,7 +63,7 @@ export default async function ProductPage({ params }: PageProps) {
     if (!product) notFound();
 
     const imageUrl = absoluteImageUrl(product.image);
-    const displayName = isFabricProduct(product) ? "Saree" : product.name;
+    const displayName = isFabricProduct(product) ? product.name || "Saree" : product.name;
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "Product",
@@ -60,17 +71,22 @@ export default async function ProductPage({ params }: PageProps) {
         description: product.description,
         image: imageUrl,
         sku: product.id,
+        brand: {
+            "@type": "Brand",
+            name: SITE_NAME,
+        },
         offers: {
             "@type": "Offer",
             price: product.price,
             priceCurrency: "INR",
             availability: "https://schema.org/InStock",
+            url: `${baseUrl.replace(/\/$/, "")}/product/${id}`,
         },
     };
 
     return (
         <div className="min-h-screen bg-background flex flex-col">
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+            <JsonLd data={jsonLd} />
             <Navbar />
 
             <main className="flex-1 container mx-auto px-4 py-10 sm:px-6 lg:px-8" role="main">

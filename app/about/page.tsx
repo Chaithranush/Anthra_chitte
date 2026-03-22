@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { existsSync } from "fs";
@@ -6,11 +7,25 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Heart, Flower2, Sparkles, Pocket } from "lucide-react";
+import { getSiteUrl, SITE_NAME } from "@/lib/seo";
 
-export const metadata = {
-  title: "Our Story | Anthra Chitte",
-  description:
-    "Woven with tradition. Tailored for you. Discover the heart behind Anthra Chitte — handcrafted traditional wear for the modern woman.",
+const aboutDesc =
+  "Woven with tradition. Tailored for you. Discover the heart behind Anthra Chitte — handcrafted traditional wear for the modern woman.";
+
+export const metadata: Metadata = {
+  title: "Our Story",
+  description: aboutDesc,
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: `Our Story | ${SITE_NAME}`,
+    description: aboutDesc,
+    url: `${getSiteUrl().replace(/\/$/, "")}/about`,
+    type: "website",
+    locale: "en_IN",
+    siteName: SITE_NAME,
+  },
+  twitter: { card: "summary_large_image", title: `Our Story | ${SITE_NAME}`, description: aboutDesc },
+  robots: { index: true, follow: true },
 };
 
 export default function AboutPage() {

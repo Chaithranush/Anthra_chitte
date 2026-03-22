@@ -2,11 +2,12 @@ import type { Metadata, Viewport } from 'next';
 import { Playfair_Display, Inter } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
+import { defaultDescription, getSiteUrl } from '@/lib/seo';
 
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-serif' });
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://anthrachitte.com';
+const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -14,8 +15,20 @@ export const metadata: Metadata = {
     default: 'Anthra Chitte | Handcrafted Traditional Wear',
     template: '%s | Anthra Chitte',
   },
-  description: 'Elegant, warm, traditional yet clean fashion. Shop Flexifit dresses, Maternity wear, and Sarees with pockets. Heartcrafted in India.',
-  keywords: ['sarees', 'traditional wear', 'maternity wear', 'Flexifit', 'handcrafted', 'Anthra Chitte', 'sarees with pockets'],
+  description: defaultDescription,
+  keywords: [
+    'sarees online India',
+    'handcrafted sarees',
+    'linen digital print saree',
+    'Ganga Pattu saree',
+    'traditional wear',
+    'maternity wear',
+    'Flexifit',
+    'sarees with pockets',
+    'Anthra Chitte',
+    'Indian ethnic wear',
+  ],
+  category: 'shopping',
   icons: [
     { rel: 'icon', url: '/icon.png', type: 'image/png', sizes: '32x32' },
     { rel: 'shortcut icon', url: '/icon.png' },
@@ -24,9 +37,10 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_IN',
+    url: siteUrl,
     siteName: 'Anthra Chitte',
     title: 'Anthra Chitte | Handcrafted Traditional Wear',
-    description: 'Elegant, warm, traditional yet clean fashion. Shop Flexifit dresses, Maternity wear, and Sarees with pockets.',
+    description: defaultDescription,
     images: [{ url: '/logo.png', width: 512, height: 512, alt: 'Anthra Chitte' }],
   },
   twitter: {
